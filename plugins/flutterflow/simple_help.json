@@ -1,0 +1,22 @@
+{
+  "mvp_help_system": "Hardcoded FlutterFlow help (MVP)",
+  "version": "0.1.0",
+  "common_errors": {
+    "firebase_query": {
+      "error_patterns": ["SELECT \\* FROM", "firebase error", "permission denied"],
+      "solution": "Check Firebase security rules. Use: SELECT * FROM table WHERE auth.uid = user_id",
+      "mvp_action": "Show this text in GUI"
+    },
+    "widget_error": {
+      "error_patterns": ["widget error", "null check", "state error"],
+      "solution": "Add null checks: if (widget != null) { ... }",
+      "mvp_action": "Show this text in GUI"
+    },
+    "api_call": {
+      "error_patterns": ["api call", "network error", "timeout"],
+      "solution": "Add error handling and retry logic",
+      "mvp_action": "Show this text in GUI"
+    }
+  },
+  "blueprint_upgrade": "This will become a proper plugin system with dynamic loading"
+}

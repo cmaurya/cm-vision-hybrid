@@ -1,0 +1,16 @@
+# CORE (REQUIRED)
+google-generativeai>=0.3.0
+pillow>=10.0.0
+mss>=9.0.1
+python-dotenv>=1.0.0
+
+# OPTIONAL (for enhanced features)
+# pip install pygetwindow  # Better window detection
+# pip install psutil       # System monitoring
+
+# FUTURE/BLUEPRINT (commented out for now)
+# supabase>=2.3.0
+# numpy>=1.24.0
+# networkx>=3.0
+# pyautogui>=0.9.54
+# pyqt6>=6.5.0
