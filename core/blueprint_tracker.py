@@ -1,200 +1,461 @@
 """
-TRACKS: What MVP features exist vs Blueprint postponed features
-This file ensures we don't forget the grand vision while building MVP
+blueprint_tracker.py
+====================
+Tracks migration from MVP to full Blueprint system.
+Phase 1.4: Enhanced tracking with progress calculation
 """
-import json
+
 import os
+import json
+import time
 from datetime import datetime
-from typing import Dict, List, Any
+from dataclasses import dataclass, asdict
+from typing import Dict, List, Optional, Any
+import hashlib
+
+@dataclass
+class BlueprintComponent:
+    """Represents a component from the blueprint"""
+    name: str
+    description: str
+    phase: int  # 1-5
+    status: str  # postponed, included, planned, completed
+    priority: int  # 1-5, 1 = highest
+    tech_debt: str = ""
+    dependencies: List[str] = None
+    estimated_effort: int = 0  # hours
+    
+    def __post_init__(self):
+        if self.dependencies is None:
+            self.dependencies = []
+
+@dataclass 
+class MVPTracker:
+    """Tracks MVP implementation progress"""
+    version: str = "0.1.1"
+    start_date: str = ""
+    last_updated: str = ""
+    total_captures: int = 0
+    gemini_calls: int = 0
+    memory_items: int = 0
+    suggestions_given: int = 0
+    events_logged: int = 0
+    active_patterns: List[str] = None
+    tech_debt_items: List[str] = None
+    
+    def __post_init__(self):
+        if self.active_patterns is None:
+            self.active_patterns = []
+        if self.tech_debt_items is None:
+            self.tech_debt_items = []
+        if not self.start_date:
+            self.start_date = datetime.now().strftime("%Y-%m-%d")
 
 class BlueprintTracker:
-    def __init__(self, config):
-        self.config = config
+    """Main tracker class"""
+    
+    def __init__(self, config_path: str = "config/mvp_config.json"):
+        self.config_path = config_path
         self.tracker_file = "mvp_tracker.json"
-        self.blueprint = self._load_blueprint_structure()
+        self.blueprint_file = "config/blueprint_components.json"
         
-        # Initialize tracker
-        if not os.path.exists(self.tracker_file):
-            self._init_tracker()
+        # Load configuration
+        self.config = self._load_config()
+        
+        # Initialize tracker data
+        self.tracker_data = self._load_or_create_tracker()
+        
+        # Blueprint components
+        self.components = self._load_blueprint_components()
+        
+        # Current MVP state
+        self.mvp_state = MVPTracker()
+        
+        # Ensure overall_progress key exists
+        if 'overall_progress' not in self.tracker_data:
+            self.tracker_data['overall_progress'] = 0
+        
+    def _load_config(self) -> Dict:
+        """Load MVP configuration"""
+        try:
+            with open(self.config_path, 'r') as f:
+                return json.load(f)
+        except FileNotFoundError:
+            return {"mode": "MVP", "version": "0.1.1"}
     
-    def _load_blueprint_structure(self):
-        """Load the 6-phase blueprint structure"""
+    def _load_or_create_tracker(self) -> Dict:
+        """Load existing tracker or create new one"""
+        if os.path.exists(self.tracker_file):
+            try:
+                with open(self.tracker_file, 'r') as f:
+                    data = json.load(f)
+                    # Ensure all required keys exist
+                    required_keys = ['overall_progress', 'current_phase', 'components', 'milestones']
+                    for key in required_keys:
+                        if key not in data:
+                            data[key] = 0 if key == 'overall_progress' else [] if key in ['components', 'milestones'] else 'Phase 1'
+                    return data
+            except json.JSONDecodeError:
+                print("⚠ Tracker file corrupted, creating new one")
+        
+        # Create new tracker
         return {
-            "phase_1": {
-                "name": "Active Perception Engine",
-                "mvp_status": "partial",
-                "components": {
-                    "enriched_capture": {"mvp": True, "blueprint": True, "notes": "MVP has basic capture"},
-                    "visual_understanding": {"mvp": True, "blueprint": True, "notes": "Gemini from Day 1 ✓"},
-                    "intent_inference": {"mvp": "basic", "blueprint": "advanced", "notes": "MVP: simple rules"},
-                    "event_stream": {"mvp": False, "blueprint": True, "notes": "POSTPONED: For Phase 1.4"},
-                }
-            },
-            "phase_2": {
-                "name": "Lifelong Memory System",
-                "mvp_status": "minimal",
-                "components": {
-                    "vector_embedding": {"mvp": False, "blueprint": True, "notes": "POSTPONED: JSON file for now"},
-                    "hybrid_search": {"mvp": False, "blueprint": True, "notes": "POSTPONED: Simple text search"},
-                    "memory_graph": {"mvp": False, "blueprint": True, "notes": "POSTPONED: Linear history only"},
-                    "recall_engine": {"mvp": "basic", "blueprint": "advanced", "notes": "MVP: Last 10 similar"},
-                }
-            },
-            "phase_3": {
-                "name": "Cognitive Reasoning Core",
-                "mvp_status": "none",
-                "components": {
-                    "orchestrator_agent": {"mvp": False, "blueprint": True, "notes": "POSTPONED: Simple direct calls"},
-                    "specialist_agents": {"mvp": False, "blueprint": True, "notes": "POSTPONED: One-size-fits-all"},
-                    "knowledge_graph": {"mvp": False, "blueprint": True, "notes": "POSTPONED: Hardcoded FlutterFlow"},
-                    "proactive_engine": {"mvp": False, "blueprint": True, "notes": "POSTPONED: Reactive only in MVP"},
-                }
-            },
-            "phase_4": {
-                "name": "Seamless Interface",
-                "mvp_status": "minimal",
-                "components": {
-                    "overlay_gui": {"mvp": False, "blueprint": True, "notes": "POSTPONED: Separate window"},
-                    "highlighting": {"mvp": False, "blueprint": True, "notes": "POSTPONED: Text only"},
-                    "multimodal_output": {"mvp": False, "blueprint": True, "notes": "POSTPONED: Text only"},
-                    "privacy_sandbox": {"mvp": False, "blueprint": True, "notes": "POSTPONED: Basic opt-out"},
-                }
-            },
-            "phase_5": {
-                "name": "Universal Adapter Layer",
-                "mvp_status": "none",
-                "components": {
-                    "plugin_architecture": {"mvp": False, "blueprint": True, "notes": "POSTPONED: Hardcoded"},
-                    "tool_parsers": {"mvp": "flutterflow_only", "blueprint": "universal", "notes": "MVP: One domain"},
-                    "action_api": {"mvp": False, "blueprint": True, "notes": "POSTPONED: Manual actions"},
-                }
-            },
-            "phase_6": {
-                "name": "Deployment & Growth",
-                "mvp_status": "none",
-                "components": {
-                    "beta_packaging": {"mvp": False, "blueprint": True, "notes": "POSTPONED: Run from source"},
-                    "telemetry": {"mvp": False, "blueprint": True, "notes": "POSTPONED: Local logs only"},
-                    "community_platform": {"mvp": False, "blueprint": True, "notes": "POSTPONED: Manual sharing"},
-                }
-            }
-        }
-    
-    def _init_tracker(self):
-        """Initialize the tracker file"""
-        tracker = {
-            "project": "CM Vision Hybrid MVP",
-            "version": "0.1.0",
+            "version": "0.1.1",
             "created": datetime.now().isoformat(),
             "last_updated": datetime.now().isoformat(),
-            "current_focus": "MVP Day 1: Foundation & Basic Capture",
-            "blueprint_status": self.blueprint,
-            "postponed_features": [],
-            "tech_debt": [],
-            "mvp_milestones": [
-                {"id": 1, "name": "Day 1: Basic Capture & Analysis", "status": "in_progress"},
-                {"id": 2, "name": "Day 3: Simple Memory System", "status": "pending"},
-                {"id": 3, "name": "Day 7: Basic GUI", "status": "pending"},
-                {"id": 4, "name": "Day 14: FlutterFlow Help", "status": "pending"},
-                {"id": 5, "name": "Day 30: MVP Complete", "status": "pending"},
-            ],
-            "blueprint_migration_path": [
-                {"phase": 1, "feature": "Event Stream", "prerequisite": "MVP stable", "effort": "2 days"},
-                {"phase": 2, "feature": "Vector Database", "prerequisite": "Supabase setup", "effort": "5 days"},
-                {"phase": 2, "feature": "Memory Graph", "prerequisite": "Vector DB done", "effort": "3 days"},
-                {"phase": 3, "feature": "Orchestrator Agent", "prerequisite": "Memory working", "effort": "7 days"},
-                {"phase": 4, "feature": "Overlay GUI", "prerequisite": "PyQt6 learned", "effort": "10 days"},
-                {"phase": 5, "feature": "Plugin System", "prerequisite": "Overlay stable", "effort": "14 days"},
-            ]
+            "overall_progress": 0,
+            "current_phase": "Phase 1",
+            "components": [],
+            "milestones": [],
+            "tech_debt": []
+        }
+    
+    def _load_blueprint_components(self) -> List[BlueprintComponent]:
+        """Load blueprint components from file or create defaults"""
+        if os.path.exists(self.blueprint_file):
+            try:
+                with open(self.blueprint_file, 'r') as f:
+                    components_data = json.load(f)
+                    return [BlueprintComponent(**comp) for comp in components_data]
+            except (json.JSONDecodeError, FileNotFoundError):
+                pass
+        
+        # Default blueprint components (from the blueprint doc)
+        return [
+            BlueprintComponent(
+                name="vector_database",
+                description="Supabase pgvector for embeddings",
+                phase=2,
+                status="postponed",
+                priority=1,
+                tech_debt="JSON file memory",
+                dependencies=["supabase_setup"],
+                estimated_effort=8
+            ),
+            BlueprintComponent(
+                name="graph_database",
+                description="Neo4j for knowledge graph",
+                phase=2,
+                status="postponed", 
+                priority=2,
+                tech_debt="Basic text similarity",
+                dependencies=["vector_database"],
+                estimated_effort=12
+            ),
+            BlueprintComponent(
+                name="advanced_overlay",
+                description="PyQt6 overlay system",
+                phase=4,
+                status="postponed",
+                priority=3,
+                tech_debt="Tkinter basic GUI",
+                dependencies=["prevention_system"],
+                estimated_effort=16
+            ),
+            BlueprintComponent(
+                name="plugin_system",
+                description="Extensible plugin architecture",
+                phase=5,
+                status="postponed",
+                priority=4,
+                tech_debt="Hardcoded plugins",
+                dependencies=["advanced_overlay"],
+                estimated_effort=20
+            ),
+            BlueprintComponent(
+                name="telemetry",
+                description="Event stream analytics",
+                phase=1,
+                status="included",
+                priority=1,
+                tech_debt="Basic event stream",
+                dependencies=[],
+                estimated_effort=4
+            ),
+            BlueprintComponent(
+                name="proactive_engine",
+                description="4-level intervention system",
+                phase=3,
+                status="included",
+                priority=2,
+                tech_debt="Reactive suggestions only",
+                dependencies=["pattern_detection"],
+                estimated_effort=24
+            ),
+            BlueprintComponent(
+                name="cross_domain",
+                description="Multi-channel monitoring",
+                phase=2,
+                status="included",
+                priority=1,
+                tech_debt="Full screen capture only",
+                dependencies=["event_stream"],
+                estimated_effort=12
+            )
+        ]
+    
+    def update_progress(self, component_name: str, status: str, notes: str = ""):
+        """Update progress for a specific component"""
+        # Find the component
+        component = next((c for c in self.components if c.name == component_name), None)
+        if not component:
+            print(f"⚠ Component {component_name} not found in blueprint")
+            return
+        
+        # Update component status
+        old_status = component.status
+        component.status = status
+        
+        # Add to tracker
+        update = {
+            "timestamp": datetime.now().isoformat(),
+            "component": component_name,
+            "old_status": old_status,
+            "new_status": status,
+            "notes": notes
         }
         
-        with open(self.tracker_file, 'w') as f:
-            json.dump(tracker, f, indent=2)
+        self.tracker_data["components"].append(update)
         
-        print("✓ Blueprint tracker initialized")
-        print("  MVP → Blueprint migration path documented")
+        # Recalculate overall progress
+        self._calculate_overall_progress()
+        
+        # Save
+        self._save_tracker()
+        
+        print(f"✓ Progress updated: {component_name} -> {status}")
     
-    def log_mvp_completion(self, component: str, notes: str = ""):
-        """Log when an MVP component is completed"""
-        with open(self.tracker_file, 'r') as f:
-            tracker = json.load(f)
+    def _calculate_overall_progress(self):
+        """Calculate overall progress percentage"""
+        total_components = len(self.components)
+        if total_components == 0:
+            self.tracker_data['overall_progress'] = 0
+            return
         
-        # Update blueprint status if this completes a component
-        for phase_name, phase in tracker['blueprint_status'].items():
-            for comp_name, comp_data in phase['components'].items():
-                if comp_name in component.lower():
-                    if comp_data['mvp'] == False:
-                        comp_data['mvp'] = "partial"
-                        comp_data['notes'] = f"MVP basic version: {notes}"
+        # Weight components by priority
+        completed_score = 0
+        total_score = 0
         
-        tracker['last_updated'] = datetime.now().isoformat()
+        status_weights = {
+            "completed": 1.0,
+            "included": 0.75,
+            "in_progress": 0.5,
+            "planned": 0.25,
+            "postponed": 0.0
+        }
         
-        with open(self.tracker_file, 'w') as f:
-            json.dump(tracker, f, indent=2)
+        for component in self.components:
+            weight = 6 - component.priority  # Higher priority = higher weight
+            status_weight = status_weights.get(component.status, 0)
+            completed_score += weight * status_weight
+            total_score += weight
         
-        print(f"✓ MVP progress logged: {component}")
+        if total_score > 0:
+            progress = int((completed_score / total_score) * 100)
+            self.tracker_data['overall_progress'] = progress
     
-    def add_tech_debt(self, item: str, reason: str, blueprint_feature: str):
-        """Add technical debt (MVP shortcuts that need blueprint fixing)"""
-        with open(self.tracker_file, 'r') as f:
-            tracker = json.load(f)
-        
-        tracker['tech_debt'].append({
-            "item": item,
-            "reason": reason,
-            "blueprint_feature": blueprint_feature,
-            "added": datetime.now().isoformat(),
+    def log_tech_debt(self, component: str, debt: str):
+        """Log technical debt for a component"""
+        debt_entry = {
+            "timestamp": datetime.now().isoformat(),
+            "component": component,
+            "debt": debt,
             "status": "pending"
-        })
+        }
         
-        with open(self.tracker_file, 'w') as f:
-            json.dump(tracker, f, indent=2)
+        self.tracker_data.setdefault("tech_debt", []).append(debt_entry)
         
-        print(f"⚠ Tech debt logged: {item} -> Will fix with {blueprint_feature}")
+        # Also update component
+        comp = next((c for c in self.components if c.name == component), None)
+        if comp:
+            comp.tech_debt = debt
+        
+        self._save_tracker()
+        
+        print(f"⚠ Tech debt logged: {debt}")
     
-    def get_next_blueprint_upgrade(self):
-        """Get the next blueprint feature to implement after MVP"""
-        with open(self.tracker_file, 'r') as f:
-            tracker = json.load(f)
+    def log_milestone(self, milestone: str, details: str = ""):
+        """Log a development milestone"""
+        milestone_entry = {
+            "timestamp": datetime.now().isoformat(),
+            "milestone": milestone,
+            "details": details
+        }
         
-        for item in tracker['blueprint_migration_path']:
-            if item.get('status', 'pending') == 'pending':
-                return item
+        self.tracker_data.setdefault("milestones", []).append(milestone_entry)
+        self._save_tracker()
         
-        return None
+        print(f"🎯 Milestone: {milestone}")
+    
+    def update_mvp_stats(self, stats: Dict):
+        """Update MVP statistics"""
+        for key, value in stats.items():
+            if hasattr(self.mvp_state, key):
+                setattr(self.mvp_state, key, value)
+        
+        # Update tracker
+        self.tracker_data["last_updated"] = datetime.now().isoformat()
+        self.tracker_data["mvp_stats"] = asdict(self.mvp_state)
+        self._save_tracker()
     
     def show_status(self):
         """Display current MVP vs Blueprint status"""
-        with open(self.tracker_file, 'r') as f:
-            tracker = json.load(f)
-        
-        print("\n" + "="*60)
+        print("\n" + "=" * 60)
         print("MVP vs BLUEPRINT TRACKER")
-        print("="*60)
+        print("=" * 60)
         
-        mvp_count = 0
-        blueprint_count = 0
+        # Get tracker data safely with defaults
+        tracker = self.tracker_data
+        progress = tracker.get('overall_progress', 0)
+        phase = tracker.get('current_phase', 'Phase 1')
         
-        for phase_name, phase in tracker['blueprint_status'].items():
-            print(f"\n{phase['name'].upper()}: {phase['mvp_status']}")
-            
-            for comp_name, comp_data in phase['components'].items():
-                status = "✓" if comp_data['mvp'] else "✗"
-                if comp_data['mvp'] == "partial" or comp_data['mvp'] == "basic":
-                    status = "~"
-                
-                if comp_data['mvp']:
-                    mvp_count += 1
-                if comp_data['blueprint']:
-                    blueprint_count += 1
-                
-                print(f"  {status} {comp_name}: {comp_data['notes']}")
+        print(f"Phase: {phase}")
+        print(f"Overall Progress: {progress}%")
+        print(f"Last Updated: {tracker.get('last_updated', 'N/A')}")
         
-        print(f"\n📊 SUMMARY: {mvp_count} MVP features, {blueprint_count} Blueprint targets")
+        # MVP Stats
+        print("\n📊 MVP STATISTICS:")
+        if 'mvp_stats' in tracker:
+            stats = tracker['mvp_stats']
+            print(f"  • Version: {stats.get('version', 'N/A')}")
+            print(f"  • Captures: {stats.get('total_captures', 0)}")
+            print(f"  • Memory Items: {stats.get('memory_items', 0)}")
+            print(f"  • Suggestions: {stats.get('suggestions_given', 0)}")
         
-        # Show next upgrade
-        next_upgrade = self.get_next_blueprint_upgrade()
-        if next_upgrade:
-            print(f"\n➡ NEXT BLUEPRINT UPGRADE: {next_upgrade['feature']} ({next_upgrade['effort']})")
+        # Component Status
+        print("\n🔧 COMPONENT STATUS:")
+        for component in self.components:
+            status_icon = "🟢" if component.status in ["included", "completed"] else "🟡" if component.status == "in_progress" else "🔴"
+            print(f"  {status_icon} {component.name:20} {component.status:12} (Phase {component.phase})")
         
-        return tracker
+        # Recent Tech Debt
+        tech_debt = tracker.get('tech_debt', [])
+        if tech_debt and len(tech_debt) > 0:
+            print("\n⚠ RECENT TECH DEBT:")
+            for debt in tech_debt[-3:]:  # Show last 3
+                print(f"  • {debt.get('component', 'unknown')}: {debt.get('debt', 'N/A')}")
+        
+        # Migration Path
+        print("\n🛣️  MIGRATION PATH (Next 3 items):")
+        next_items = sorted(
+            [c for c in self.components if c.status in ["postponed", "planned"]],
+            key=lambda x: (x.priority, x.phase)
+        )[:3]
+        
+        for i, item in enumerate(next_items, 1):
+            print(f"  {i}. {item.name}: {item.description}")
+            print(f"     Phase {item.phase}, Priority {item.priority}, Effort: {item.estimated_effort}h")
+        
+        print("=" * 60)
+    
+    def get_migration_path(self) -> List[Dict]:
+        """Get the migration path from MVP to full blueprint"""
+        path = []
+        
+        # Group by phase
+        for phase in range(1, 6):
+            phase_components = [c for c in self.components if c.phase == phase]
+            if phase_components:
+                path.append({
+                    "phase": f"Phase {phase}",
+                    "components": [
+                        {
+                            "name": c.name,
+                            "priority": c.priority,
+                            "status": c.status,
+                            "dependencies": c.dependencies,
+                            "effort": c.estimated_effort
+                        }
+                        for c in sorted(phase_components, key=lambda x: x.priority)
+                    ]
+                })
+        
+        return path
+    
+    def generate_report(self) -> str:
+        """Generate a comprehensive report"""
+        report = []
+        report.append("=" * 60)
+        report.append("CM VISION - BLUEPRINT MIGRATION REPORT")
+        report.append("=" * 60)
+        
+        # Summary
+        report.append(f"\n📅 Report Generated: {datetime.now().isoformat()}")
+        report.append(f"📈 Overall Progress: {self.tracker_data.get('overall_progress', 0)}%")
+        report.append(f"🎯 Current Phase: {self.tracker_data.get('current_phase', 'Phase 1')}")
+        
+        # Component Breakdown
+        report.append("\n🔧 COMPONENT BREAKDOWN:")
+        status_counts = {}
+        for component in self.components:
+            status_counts[component.status] = status_counts.get(component.status, 0) + 1
+        
+        for status, count in status_counts.items():
+            report.append(f"  {status}: {count}")
+        
+        # Tech Debt Summary
+        tech_debt = self.tracker_data.get('tech_debt', [])
+        if tech_debt:
+            report.append(f"\n⚠ TECHNICAL DEBT: {len(tech_debt)} items")
+            for debt in tech_debt[-5:]:
+                report.append(f"  • {debt.get('component')}: {debt.get('debt')}")
+        
+        # Recommendations
+        report.append("\n🎯 RECOMMENDED NEXT STEPS:")
+        next_steps = self.get_migration_path()
+        for phase in next_steps[:2]:  # Next 2 phases
+            report.append(f"\n{phase['phase']}:")
+            for comp in phase['components'][:3]:  # Top 3 per phase
+                if comp['status'] in ['postponed', 'planned']:
+                    report.append(f"  • {comp['name']} (Priority: {comp['priority']})")
+        
+        report.append("\n" + "=" * 60)
+        
+        return "\n".join(report)
+    
+    def _save_tracker(self):
+        """Save tracker data to file"""
+        self.tracker_data["last_updated"] = datetime.now().isoformat()
+        
+        # Ensure overall_progress exists before saving
+        if 'overall_progress' not in self.tracker_data:
+            self.tracker_data['overall_progress'] = 0
+        
+        try:
+            with open(self.tracker_file, 'w') as f:
+                json.dump(self.tracker_data, f, indent=2)
+        except Exception as e:
+            print(f"⚠ Failed to save tracker: {e}")
+    
+    def get_component(self, name: str) -> Optional[BlueprintComponent]:
+        """Get a component by name"""
+        return next((c for c in self.components if c.name == name), None)
+    
+    def mark_completed(self, component_name: str):
+        """Mark a component as completed"""
+        self.update_progress(component_name, "completed", "Manual completion")
+
+# Singleton instance for easy access
+_tracker_instance = None
+
+def get_tracker(config_path: str = "config/mvp_config.json") -> BlueprintTracker:
+    """Get or create tracker instance"""
+    global _tracker_instance
+    if _tracker_instance is None:
+        _tracker_instance = BlueprintTracker(config_path)
+    return _tracker_instance
+
+if __name__ == "__main__":
+    # Test the tracker
+    tracker = BlueprintTracker()
+    tracker.show_status()
+    
+    # Generate report
+    report = tracker.generate_report()
+    print("\n" + report)
+    
+    # Save to file
+    with open("blueprint_report.txt", "w") as f:
+        f.write(report)
+    
+    print("✓ Tracker test complete. Report saved to blueprint_report.txt")

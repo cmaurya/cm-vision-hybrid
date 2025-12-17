@@ -1,0 +1,1122 @@
+{
+  "project": "CM Vision Hybrid MVP",
+  "version": "0.1.0",
+  "created": "2025-12-16T12:27:08.217111",
+  "last_updated": "2025-12-17T21:34:38.520945",
+  "current_focus": "MVP Day 1: Foundation & Basic Capture",
+  "blueprint_status": {
+    "phase_1": {
+      "name": "Active Perception Engine",
+      "mvp_status": "partial",
+      "components": {
+        "enriched_capture": {
+          "mvp": true,
+          "blueprint": true,
+          "notes": "MVP has basic capture"
+        },
+        "visual_understanding": {
+          "mvp": true,
+          "blueprint": true,
+          "notes": "Gemini from Day 1 \u2713"
+        },
+        "intent_inference": {
+          "mvp": "basic",
+          "blueprint": "advanced",
+          "notes": "MVP: simple rules"
+        },
+        "event_stream": {
+          "mvp": false,
+          "blueprint": true,
+          "notes": "POSTPONED: For Phase 1.4"
+        }
+      }
+    },
+    "phase_2": {
+      "name": "Lifelong Memory System",
+      "mvp_status": "minimal",
+      "components": {
+        "vector_embedding": {
+          "mvp": false,
+          "blueprint": true,
+          "notes": "POSTPONED: JSON file for now"
+        },
+        "hybrid_search": {
+          "mvp": false,
+          "blueprint": true,
+          "notes": "POSTPONED: Simple text search"
+        },
+        "memory_graph": {
+          "mvp": false,
+          "blueprint": true,
+          "notes": "POSTPONED: Linear history only"
+        },
+        "recall_engine": {
+          "mvp": "basic",
+          "blueprint": "advanced",
+          "notes": "MVP: Last 10 similar"
+        }
+      }
+    },
+    "phase_3": {
+      "name": "Cognitive Reasoning Core",
+      "mvp_status": "none",
+      "components": {
+        "orchestrator_agent": {
+          "mvp": false,
+          "blueprint": true,
+          "notes": "POSTPONED: Simple direct calls"
+        },
+        "specialist_agents": {
+          "mvp": false,
+          "blueprint": true,
+          "notes": "POSTPONED: One-size-fits-all"
+        },
+        "knowledge_graph": {
+          "mvp": false,
+          "blueprint": true,
+          "notes": "POSTPONED: Hardcoded FlutterFlow"
+        },
+        "proactive_engine": {
+          "mvp": false,
+          "blueprint": true,
+          "notes": "POSTPONED: Reactive only in MVP"
+        }
+      }
+    },
+    "phase_4": {
+      "name": "Seamless Interface",
+      "mvp_status": "minimal",
+      "components": {
+        "overlay_gui": {
+          "mvp": false,
+          "blueprint": true,
+          "notes": "POSTPONED: Separate window"
+        },
+        "highlighting": {
+          "mvp": false,
+          "blueprint": true,
+          "notes": "POSTPONED: Text only"
+        },
+        "multimodal_output": {
+          "mvp": false,
+          "blueprint": true,
+          "notes": "POSTPONED: Text only"
+        },
+        "privacy_sandbox": {
+          "mvp": false,
+          "blueprint": true,
+          "notes": "POSTPONED: Basic opt-out"
+        }
+      }
+    },
+    "phase_5": {
+      "name": "Universal Adapter Layer",
+      "mvp_status": "none",
+      "components": {
+        "plugin_architecture": {
+          "mvp": false,
+          "blueprint": true,
+          "notes": "POSTPONED: Hardcoded"
+        },
+        "tool_parsers": {
+          "mvp": "flutterflow_only",
+          "blueprint": "universal",
+          "notes": "MVP: One domain"
+        },
+        "action_api": {
+          "mvp": false,
+          "blueprint": true,
+          "notes": "POSTPONED: Manual actions"
+        }
+      }
+    },
+    "phase_6": {
+      "name": "Deployment & Growth",
+      "mvp_status": "none",
+      "components": {
+        "beta_packaging": {
+          "mvp": false,
+          "blueprint": true,
+          "notes": "POSTPONED: Run from source"
+        },
+        "telemetry": {
+          "mvp": false,
+          "blueprint": true,
+          "notes": "POSTPONED: Local logs only"
+        },
+        "community_platform": {
+          "mvp": false,
+          "blueprint": true,
+          "notes": "POSTPONED: Manual sharing"
+        }
+      }
+    }
+  },
+  "postponed_features": [],
+  "tech_debt": [
+    {
+      "item": "Full screen capture only",
+      "reason": "MVP simplicity",
+      "blueprint_feature": "Active window detection + event stream",
+      "added": "2025-12-16T12:27:08.232734",
+      "status": "pending"
+    },
+    {
+      "item": "JSON file memory",
+      "reason": "MVP simplicity, no DB setup required",
+      "blueprint_feature": "Supabase pgvector + Neo4j graph",
+      "added": "2025-12-16T12:27:08.232734",
+      "status": "pending"
+    },
+    {
+      "item": "Tkinter basic GUI",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "PyQt6 overlay with screen annotation",
+      "added": "2025-12-16T12:29:46.132741",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T12:34:11.753413",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T12:34:22.260710",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T12:34:32.758104",
+      "status": "pending"
+    },
+    {
+      "item": "Full screen capture only",
+      "reason": "MVP simplicity",
+      "blueprint_feature": "Active window detection + event stream",
+      "added": "2025-12-16T13:52:13.559704",
+      "status": "pending"
+    },
+    {
+      "item": "JSON file memory",
+      "reason": "MVP simplicity, no DB setup required",
+      "blueprint_feature": "Supabase pgvector + Neo4j graph",
+      "added": "2025-12-16T13:52:13.570679",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T13:52:24.862136",
+      "status": "pending"
+    },
+    {
+      "item": "Full screen capture only",
+      "reason": "MVP simplicity",
+      "blueprint_feature": "Active window detection + event stream",
+      "added": "2025-12-16T13:53:08.238480",
+      "status": "pending"
+    },
+    {
+      "item": "JSON file memory",
+      "reason": "MVP simplicity, no DB setup required",
+      "blueprint_feature": "Supabase pgvector + Neo4j graph",
+      "added": "2025-12-16T13:53:08.254144",
+      "status": "pending"
+    },
+    {
+      "item": "Tkinter basic GUI",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "PyQt6 overlay with screen annotation",
+      "added": "2025-12-16T13:53:11.628572",
+      "status": "pending"
+    },
+    {
+      "item": "Full screen capture only",
+      "reason": "MVP simplicity",
+      "blueprint_feature": "Active window detection + event stream",
+      "added": "2025-12-16T17:09:11.362535",
+      "status": "pending"
+    },
+    {
+      "item": "JSON file memory",
+      "reason": "MVP simplicity, no DB setup required",
+      "blueprint_feature": "Supabase pgvector + Neo4j graph",
+      "added": "2025-12-16T17:09:11.362535",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T17:09:27.627097",
+      "status": "pending"
+    },
+    {
+      "item": "Full screen capture only",
+      "reason": "MVP simplicity",
+      "blueprint_feature": "Active window detection + event stream",
+      "added": "2025-12-16T17:15:34.593148",
+      "status": "pending"
+    },
+    {
+      "item": "JSON file memory",
+      "reason": "MVP simplicity, no DB setup required",
+      "blueprint_feature": "Supabase pgvector + Neo4j graph",
+      "added": "2025-12-16T17:15:34.596169",
+      "status": "pending"
+    },
+    {
+      "item": "Tkinter basic GUI",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "PyQt6 overlay with screen annotation",
+      "added": "2025-12-16T17:15:37.802741",
+      "status": "pending"
+    },
+    {
+      "item": "Full screen capture only",
+      "reason": "MVP simplicity",
+      "blueprint_feature": "Active window detection + event stream",
+      "added": "2025-12-16T17:22:33.641351",
+      "status": "pending"
+    },
+    {
+      "item": "JSON file memory",
+      "reason": "MVP simplicity, no DB setup required",
+      "blueprint_feature": "Supabase pgvector + Neo4j graph",
+      "added": "2025-12-16T17:22:33.641351",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T17:23:15.345812",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T17:23:26.033546",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T17:23:36.737777",
+      "status": "pending"
+    },
+    {
+      "item": "Full screen capture only",
+      "reason": "MVP simplicity",
+      "blueprint_feature": "Active window detection + event stream",
+      "added": "2025-12-16T17:56:49.650115",
+      "status": "pending"
+    },
+    {
+      "item": "JSON file memory",
+      "reason": "MVP simplicity, no DB setup required",
+      "blueprint_feature": "Supabase pgvector + Neo4j graph",
+      "added": "2025-12-16T17:56:49.650115",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T17:57:32.439792",
+      "status": "pending"
+    },
+    {
+      "item": "Full screen capture only",
+      "reason": "MVP simplicity",
+      "blueprint_feature": "Active window detection + event stream",
+      "added": "2025-12-16T17:59:08.779574",
+      "status": "pending"
+    },
+    {
+      "item": "JSON file memory",
+      "reason": "MVP simplicity, no DB setup required",
+      "blueprint_feature": "Supabase pgvector + Neo4j graph",
+      "added": "2025-12-16T17:59:08.782598",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T17:59:52.284685",
+      "status": "pending"
+    },
+    {
+      "item": "Full screen capture only",
+      "reason": "MVP simplicity",
+      "blueprint_feature": "Active window detection + event stream",
+      "added": "2025-12-16T18:02:08.049739",
+      "status": "pending"
+    },
+    {
+      "item": "JSON file memory",
+      "reason": "MVP simplicity, no DB setup required",
+      "blueprint_feature": "Supabase pgvector + Neo4j graph",
+      "added": "2025-12-16T18:02:08.053848",
+      "status": "pending"
+    },
+    {
+      "item": "Tkinter basic GUI",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "PyQt6 overlay with screen annotation",
+      "added": "2025-12-16T18:02:10.323695",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T18:02:43.107039",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T18:02:43.111027",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T18:02:53.868900",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T18:02:53.894009",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T18:03:04.603433",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T18:03:04.608429",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T18:03:15.372155",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T18:03:15.386012",
+      "status": "pending"
+    },
+    {
+      "item": "Full screen capture only",
+      "reason": "MVP simplicity",
+      "blueprint_feature": "Active window detection + event stream",
+      "added": "2025-12-16T18:09:58.076091",
+      "status": "pending"
+    },
+    {
+      "item": "JSON file memory",
+      "reason": "MVP simplicity, no DB setup required",
+      "blueprint_feature": "Supabase pgvector + Neo4j graph",
+      "added": "2025-12-16T18:09:58.080081",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T18:10:03.955542",
+      "status": "pending"
+    },
+    {
+      "item": "Full screen capture only",
+      "reason": "MVP simplicity",
+      "blueprint_feature": "Active window detection + event stream",
+      "added": "2025-12-16T18:10:30.079886",
+      "status": "pending"
+    },
+    {
+      "item": "JSON file memory",
+      "reason": "MVP simplicity, no DB setup required",
+      "blueprint_feature": "Supabase pgvector + Neo4j graph",
+      "added": "2025-12-16T18:10:30.114434",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T18:10:39.379365",
+      "status": "pending"
+    },
+    {
+      "item": "Full screen capture only",
+      "reason": "MVP simplicity",
+      "blueprint_feature": "Active window detection + event stream",
+      "added": "2025-12-16T18:10:52.815516",
+      "status": "pending"
+    },
+    {
+      "item": "JSON file memory",
+      "reason": "MVP simplicity, no DB setup required",
+      "blueprint_feature": "Supabase pgvector + Neo4j graph",
+      "added": "2025-12-16T18:10:52.819815",
+      "status": "pending"
+    },
+    {
+      "item": "Tkinter basic GUI",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "PyQt6 overlay with screen annotation",
+      "added": "2025-12-16T18:10:56.579498",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T18:11:17.276545",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T18:11:17.280734",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T18:11:28.270426",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T18:11:28.276018",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T18:11:39.139920",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T18:11:39.147091",
+      "status": "pending"
+    },
+    {
+      "item": "Full screen capture only",
+      "reason": "MVP simplicity",
+      "blueprint_feature": "Active window detection + event stream",
+      "added": "2025-12-16T18:48:53.164776",
+      "status": "pending"
+    },
+    {
+      "item": "JSON file memory",
+      "reason": "MVP simplicity, no DB setup required",
+      "blueprint_feature": "Supabase pgvector + Neo4j graph",
+      "added": "2025-12-16T18:48:53.164776",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T18:49:03.940617",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T18:49:19.472182",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T18:51:26.994914",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T18:51:49.521160",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T18:52:49.029509",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T18:53:04.509354",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T18:53:29.519013",
+      "status": "pending"
+    },
+    {
+      "item": "Full screen capture only",
+      "reason": "MVP simplicity",
+      "blueprint_feature": "Active window detection + event stream",
+      "added": "2025-12-16T21:33:15.800520",
+      "status": "pending"
+    },
+    {
+      "item": "JSON file memory",
+      "reason": "MVP simplicity, no DB setup required",
+      "blueprint_feature": "Supabase pgvector + Neo4j graph",
+      "added": "2025-12-16T21:33:15.800520",
+      "status": "pending"
+    },
+    {
+      "item": "Basic event stream",
+      "reason": "MVP Phase 1.4 implementation",
+      "blueprint_feature": "Real-time event processing + ML pattern detection",
+      "added": "2025-12-16T21:33:15.800520",
+      "status": "pending"
+    },
+    {
+      "item": "Tkinter basic GUI",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "PyQt6 overlay with screen annotation",
+      "added": "2025-12-16T21:33:20.072495",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T21:33:54.614948",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T21:33:54.620938",
+      "status": "pending"
+    },
+    {
+      "item": "Full screen capture only",
+      "reason": "MVP simplicity",
+      "blueprint_feature": "Active window detection + event stream",
+      "added": "2025-12-16T21:56:15.991080",
+      "status": "pending"
+    },
+    {
+      "item": "JSON file memory",
+      "reason": "MVP simplicity, no DB setup required",
+      "blueprint_feature": "Supabase pgvector + Neo4j graph",
+      "added": "2025-12-16T21:56:15.996067",
+      "status": "pending"
+    },
+    {
+      "item": "Basic event stream",
+      "reason": "MVP Phase 1.4 implementation",
+      "blueprint_feature": "Real-time event processing + ML pattern detection",
+      "added": "2025-12-16T21:56:15.998062",
+      "status": "pending"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-16T21:56:41.258859",
+      "status": "pending"
+    },
+    {
+      "item": "Full screen capture only",
+      "reason": "MVP simplicity",
+      "blueprint_feature": "Active window detection + event stream",
+      "added": "2025-12-17T13:28:38.659429",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "item": "JSON file memory",
+      "reason": "MVP simplicity, no DB setup required",
+      "blueprint_feature": "Supabase pgvector + Neo4j graph",
+      "added": "2025-12-17T13:28:38.662421",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "item": "Basic event stream",
+      "reason": "MVP Phase 1.4 implementation",
+      "blueprint_feature": "Real-time event processing + ML pattern detection",
+      "added": "2025-12-17T13:28:38.665413",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-17T13:29:06.819437",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "item": "Full screen capture only",
+      "reason": "MVP simplicity",
+      "blueprint_feature": "Active window detection + event stream",
+      "added": "2025-12-17T13:29:22.792020",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "item": "JSON file memory",
+      "reason": "MVP simplicity, no DB setup required",
+      "blueprint_feature": "Supabase pgvector + Neo4j graph",
+      "added": "2025-12-17T13:29:22.797123",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "item": "Basic event stream",
+      "reason": "MVP Phase 1.4 implementation",
+      "blueprint_feature": "Real-time event processing + ML pattern detection",
+      "added": "2025-12-17T13:29:22.800115",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "item": "Tkinter basic GUI",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "PyQt6 overlay with screen annotation",
+      "added": "2025-12-17T13:29:25.240541",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-17T13:29:29.221457",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-17T13:29:29.227077",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-17T13:29:39.369669",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "item": "Basic text similarity search",
+      "reason": "MVP quick implementation",
+      "blueprint_feature": "Vector embeddings + semantic search",
+      "added": "2025-12-17T13:29:39.374554",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "timestamp": "2025-12-17T13:44:26.882759",
+      "component": "capture",
+      "debt": "Full screen capture only"
+    },
+    {
+      "timestamp": "2025-12-17T13:44:26.884722",
+      "component": "memory",
+      "debt": "JSON file memory"
+    },
+    {
+      "timestamp": "2025-12-17T13:44:26.888167",
+      "component": "analyzer",
+      "debt": "No Gemini integration"
+    },
+    {
+      "timestamp": "2025-12-17T14:34:27.036236",
+      "component": "cross_domain",
+      "debt": "Full screen capture only -> Will fix with Active window detection + event stream",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T14:34:27.039228",
+      "component": "vector_database",
+      "debt": "JSON file memory -> Will fix with Supabase pgvector + Neo4j graph",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T14:34:27.049504",
+      "component": "graph_database",
+      "debt": "Basic text similarity search -> Will fix with Vector embeddings + semantic search",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T14:39:13.790032",
+      "component": "cross_domain",
+      "debt": "Full screen capture only -> Will fix with Active window detection + event stream",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T14:39:13.792055",
+      "component": "vector_database",
+      "debt": "JSON file memory -> Will fix with Supabase pgvector + Neo4j graph",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T14:39:13.797080",
+      "component": "graph_database",
+      "debt": "Basic text similarity search -> Will fix with Vector embeddings + semantic search",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T15:13:24.787229",
+      "component": "cross_domain",
+      "debt": "Full screen capture only -> Will fix with Active window detection + event stream",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T15:13:24.789223",
+      "component": "vector_database",
+      "debt": "JSON file memory -> Will fix with Supabase pgvector + Neo4j graph",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T15:13:24.791218",
+      "component": "graph_database",
+      "debt": "Basic text similarity search -> Will fix with Vector embeddings + semantic search",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T15:18:51.834066",
+      "component": "cross_domain",
+      "debt": "Full screen capture only -> Will fix with Active window detection + event stream",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T15:18:51.836061",
+      "component": "vector_database",
+      "debt": "JSON file memory -> Will fix with Supabase pgvector + Neo4j graph",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T15:18:51.838581",
+      "component": "graph_database",
+      "debt": "Basic text similarity search -> Will fix with Vector embeddings + semantic search",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T15:24:40.263926",
+      "component": "cross_domain",
+      "debt": "Full screen capture only -> Will fix with Active window detection + event stream",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T15:24:40.265923",
+      "component": "vector_database",
+      "debt": "JSON file memory -> Will fix with Supabase pgvector + Neo4j graph",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T15:24:40.273212",
+      "component": "graph_database",
+      "debt": "Basic text similarity search -> Will fix with Vector embeddings + semantic search",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T15:26:48.620579",
+      "component": "cross_domain",
+      "debt": "Full screen capture only -> Will fix with Active window detection + event stream",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T15:26:48.622573",
+      "component": "vector_database",
+      "debt": "JSON file memory -> Will fix with Supabase pgvector + Neo4j graph",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T15:26:48.628648",
+      "component": "graph_database",
+      "debt": "Basic text similarity search -> Will fix with Vector embeddings + semantic search",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T15:31:02.226382",
+      "component": "cross_domain",
+      "debt": "Full screen capture only -> Will fix with Active window detection + event stream",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T15:31:02.229375",
+      "component": "vector_database",
+      "debt": "JSON file memory -> Will fix with Supabase pgvector + Neo4j graph",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T15:31:02.239541",
+      "component": "graph_database",
+      "debt": "Basic text similarity search -> Will fix with Vector embeddings + semantic search",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T16:05:45.135137",
+      "component": "cross_domain",
+      "debt": "Full screen capture only -> Will fix with Active window detection + event stream",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T16:05:45.137133",
+      "component": "vector_database",
+      "debt": "JSON file memory -> Will fix with Supabase pgvector + Neo4j graph",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T16:05:45.140125",
+      "component": "graph_database",
+      "debt": "Basic text similarity search -> Will fix with Vector embeddings + semantic search",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T16:08:25.791020",
+      "component": "cross_domain",
+      "debt": "Full screen capture only -> Will fix with Active window detection + event stream",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T16:08:25.794041",
+      "component": "vector_database",
+      "debt": "JSON file memory -> Will fix with Supabase pgvector + Neo4j graph",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T16:08:25.808009",
+      "component": "graph_database",
+      "debt": "Basic text similarity search -> Will fix with Vector embeddings + semantic search",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T17:46:48.033114",
+      "component": "cross_domain",
+      "debt": "Full screen capture only -> Will fix with Active window detection + event stream",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T17:46:48.035109",
+      "component": "vector_database",
+      "debt": "JSON file memory -> Will fix with Supabase pgvector + Neo4j graph",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T17:46:48.038130",
+      "component": "graph_database",
+      "debt": "Basic text similarity search -> Will fix with Vector embeddings + semantic search",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T21:31:07.993834",
+      "component": "cross_domain",
+      "debt": "Full screen capture only -> Will fix with Active window detection + event stream",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T21:31:07.996825",
+      "component": "vector_database",
+      "debt": "JSON file memory -> Will fix with Supabase pgvector + Neo4j graph",
+      "status": "pending"
+    },
+    {
+      "timestamp": "2025-12-17T21:31:07.998822",
+      "component": "graph_database",
+      "debt": "Basic text similarity search -> Will fix with Vector embeddings + semantic search",
+      "status": "pending"
+    }
+  ],
+  "mvp_milestones": [
+    {
+      "id": 1,
+      "name": "Day 1: Basic Capture & Analysis",
+      "status": "in_progress"
+    },
+    {
+      "id": 2,
+      "name": "Day 3: Simple Memory System",
+      "status": "pending"
+    },
+    {
+      "id": 3,
+      "name": "Day 7: Basic GUI",
+      "status": "pending"
+    },
+    {
+      "id": 4,
+      "name": "Day 14: FlutterFlow Help",
+      "status": "pending"
+    },
+    {
+      "id": 5,
+      "name": "Day 30: MVP Complete",
+      "status": "pending"
+    }
+  ],
+  "blueprint_migration_path": [
+    {
+      "phase": 1,
+      "feature": "Event Stream",
+      "prerequisite": "MVP stable",
+      "effort": "2 days"
+    },
+    {
+      "phase": 2,
+      "feature": "Vector Database",
+      "prerequisite": "Supabase setup",
+      "effort": "5 days"
+    },
+    {
+      "phase": 2,
+      "feature": "Memory Graph",
+      "prerequisite": "Vector DB done",
+      "effort": "3 days"
+    },
+    {
+      "phase": 3,
+      "feature": "Orchestrator Agent",
+      "prerequisite": "Memory working",
+      "effort": "7 days"
+    },
+    {
+      "phase": 4,
+      "feature": "Overlay GUI",
+      "prerequisite": "PyQt6 learned",
+      "effort": "10 days"
+    },
+    {
+      "phase": 5,
+      "feature": "Plugin System",
+      "prerequisite": "Overlay stable",
+      "effort": "14 days"
+    }
+  ],
+  "overall_progress": 25,
+  "current_phase": "Phase 1",
+  "components": [],
+  "milestones": [
+    {
+      "timestamp": "2025-12-17T15:31:25.369634",
+      "milestone": "basic_memory",
+      "details": "Memory item #38 saved"
+    },
+    {
+      "timestamp": "2025-12-17T16:06:01.518337",
+      "milestone": "basic_memory",
+      "details": "Memory item #39 saved"
+    },
+    {
+      "timestamp": "2025-12-17T16:06:10.056495",
+      "milestone": "basic_memory",
+      "details": "Memory item #40 saved"
+    },
+    {
+      "timestamp": "2025-12-17T16:06:17.408217",
+      "milestone": "basic_memory",
+      "details": "Memory item #41 saved"
+    },
+    {
+      "timestamp": "2025-12-17T16:08:41.881243",
+      "milestone": "basic_memory",
+      "details": "Memory item #42 saved"
+    },
+    {
+      "timestamp": "2025-12-17T16:08:51.630342",
+      "milestone": "basic_memory",
+      "details": "Memory item #43 saved"
+    },
+    {
+      "timestamp": "2025-12-17T16:09:02.036143",
+      "milestone": "basic_memory",
+      "details": "Memory item #44 saved"
+    },
+    {
+      "timestamp": "2025-12-17T16:09:12.347562",
+      "milestone": "basic_memory",
+      "details": "Memory item #45 saved"
+    },
+    {
+      "timestamp": "2025-12-17T16:09:21.914794",
+      "milestone": "basic_memory",
+      "details": "Memory item #46 saved"
+    },
+    {
+      "timestamp": "2025-12-17T21:33:55.746122",
+      "milestone": "basic_memory",
+      "details": "Memory item #48 saved"
+    },
+    {
+      "timestamp": "2025-12-17T21:34:38.515226",
+      "milestone": "basic_memory",
+      "details": "Memory item #49 saved"
+    }
+  ],
+  "mvp_stats": {
+    "version": "0.1.1",
+    "start_date": "2025-12-17",
+    "last_updated": "",
+    "total_captures": 2,
+    "gemini_calls": 0,
+    "memory_items": 49,
+    "suggestions_given": 0,
+    "events_logged": 0,
+    "active_patterns": [],
+    "tech_debt_items": []
+  }
+}

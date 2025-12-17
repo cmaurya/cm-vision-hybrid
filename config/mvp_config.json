@@ -1,0 +1,10 @@
+{
+  "mode": "MVP",
+  "version": "0.1.1",
+  "capture_interval": 10,
+  "screenshot_dir": "screenshots",
+  "memory_file": "memory/mvp_memory.json",
+  "event_stream_file": "memory/event_stream.json",
+  "plugins": ["flutterflow"],
+  "gemini_model": "models/gemini-2.5-flash"
+}

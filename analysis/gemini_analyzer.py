@@ -16,12 +16,17 @@ class MVP_GeminiAnalyzer:
         # Configure Gemini
         genai.configure(api_key=config.gemini_api_key)
         
-        # FIX: Try multiple model names
+        # FIX: Try multiple model names, now using available 2.5/2.0 models
         self.model = None
         self.model_name = None
         
-        # Try different model names
-        model_names = ['gemini-1.5-pro', 'gemini-pro', 'gemini-1.5-flash', 'gemini-1.0-pro']
+        # Try different model names (with 'models/' prefix as per API)
+        model_names = [
+            'models/gemini-2.5-flash',   # Primary: fast and capable
+            'models/gemini-2.5-pro',     # Secondary: for complex reasoning
+            'models/gemini-2.0-flash',   # Fallback 1
+            'models/gemini-flash-latest' # Fallback 2: always points to latest
+        ]
         
         for model_name in model_names:
             try:

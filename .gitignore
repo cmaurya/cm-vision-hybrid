@@ -19,19 +19,42 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+
+# Environments
 .env
 .venv
 venv/
 ENV/
 env.bak/
 venv.bak/
+
+# IDE
 .idea/
 .vscode/
 *.swp
 *.swo
 *~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Your project folders (ignore contents but keep folder structure)
 screenshots/*
 !screenshots/.gitkeep
 memory/*
 !memory/.gitkeep
-mvp_tracker.json
+
+# Logs and data
+*.log
+*.sql
+*.sqlite
+
+# Temporary files
+*.tmp
+*.temp
